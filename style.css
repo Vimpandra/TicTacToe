@@ -1,0 +1,36 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-family: sans-serif;
+}
+
+.playersDisplay {
+    width: 70vh;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.board {
+    height: 70vh;
+    width: 70vh;
+    background-color: antiquewhite;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+}
+
+.square {
+    background-color: aquamarine;
+    border: 1px solid black;
+    cursor: pointer;
+}
