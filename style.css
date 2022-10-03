@@ -23,14 +23,18 @@ body {
 .board {
     height: 70vh;
     width: 70vh;
-    background-color: antiquewhite;
+    background-color: darkgreen;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
+    gap: 0.4rem;
 }
 
 .square {
-    background-color: aquamarine;
-    border: 1px solid black;
+    background-color: white;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14vh;
 }
