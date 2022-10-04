@@ -1,3 +1,13 @@
+// Player Factory
+const PlayerFactory = (name, symbol) => {
+    function playSymbol(target) {
+        if(target.textContent == ``) {
+            target.textContent = symbol;
+        }
+    }
+    return {name, playSymbol};
+}
+
 // Board Module
 const Board = (function() {
     'use strict';
@@ -20,7 +30,10 @@ const Board = (function() {
             console.log(`Winner`);
         }
     }
-
+    return {
+        squares,
+        checkWin
+    }
 })();
 
 // Game control Module
@@ -40,17 +53,26 @@ const gameControl = (function() {
     pvaiBtn.addEventListener(`click`, () => {
         greetingScreen.classList.add(`hidden`);
         gameScreen.classList.remove(`hidden`);
+
+        const player1 = PlayerFactory(`Player 1`, `X`);
+        Board.squares.forEach(square => {
+            square.addEventListener(`click`, () => {
+                player1.playSymbol(square);
+                Board.checkWin();
+                basicAI.randomPlay();
+            });
+        });
     });
 
 })();
 
+// AI Module
+const basicAI = {
+    name: `Easy AI`,
+    symbol: `O`,
 
-// Player Factory
-const PlayerFactory = (name, symbol) => {
-    function playSymbol(target) {
-        if(target.textContent == ``) {
-            target.textContent = symbol;
-        }
-    }
-    return {name, playSymbol};
+    randomPlay: function() {
+        let randomTarget = Math.floor(Math.random() * Board.squares.random);
+        console.log(randomTarget);
+    },
 }
