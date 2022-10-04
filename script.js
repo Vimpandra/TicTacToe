@@ -1,25 +1,56 @@
+// Board Module
 const Board = (function() {
-'use strict';
-
-const squares = Array.from(document.getElementsByClassName(`square`));
-
-function checkWin() {
-    if (
-        (squares[0].textContent === squares[1].textContent && squares[1].textContent === squares[2].textContent && squares[0].textContent !== ``) ||
-        (squares[3].textContent === squares[4].textContent && squares[4].textContent === squares[5].textContent && squares[3].textContent !== ``) ||
-        (squares[6].textContent === squares[7].textContent && squares[7].textContent === squares[8].textContent && squares[6].textContent !== ``) ||
-
-        (squares[0].textContent === squares[3].textContent && squares[3].textContent === squares[6].textContent && squares[0].textContent !== ``) ||
-        (squares[1].textContent === squares[4].textContent && squares[4].textContent === squares[7].textContent && squares[1].textContent !== ``) ||
-        (squares[2].textContent === squares[5].textContent && squares[5].textContent === squares[8].textContent && squares[2].textContent !== ``) ||
-
-        (squares[0].textContent === squares[4].textContent && squares[4].textContent === squares[8].textContent && squares[0].textContent !== ``) ||
-        (squares[2].textContent === squares[4].textContent && squares[4].textContent === squares[6].textContent && squares[2].textContent !== ``)
-    ) {
-        console.log(`Winner`);
+    'use strict';
+    
+    const squares = Array.from(document.getElementsByClassName(`square`));
+    
+    function checkWin() {
+        if (
+            (squares[0].textContent === squares[1].textContent && squares[1].textContent === squares[2].textContent && squares[0].textContent !== ``) ||
+            (squares[3].textContent === squares[4].textContent && squares[4].textContent === squares[5].textContent && squares[3].textContent !== ``) ||
+            (squares[6].textContent === squares[7].textContent && squares[7].textContent === squares[8].textContent && squares[6].textContent !== ``) ||
+    
+            (squares[0].textContent === squares[3].textContent && squares[3].textContent === squares[6].textContent && squares[0].textContent !== ``) ||
+            (squares[1].textContent === squares[4].textContent && squares[4].textContent === squares[7].textContent && squares[1].textContent !== ``) ||
+            (squares[2].textContent === squares[5].textContent && squares[5].textContent === squares[8].textContent && squares[2].textContent !== ``) ||
+    
+            (squares[0].textContent === squares[4].textContent && squares[4].textContent === squares[8].textContent && squares[0].textContent !== ``) ||
+            (squares[2].textContent === squares[4].textContent && squares[4].textContent === squares[6].textContent && squares[2].textContent !== ``)
+        ) {
+            console.log(`Winner`);
+        }
     }
-}
-
-checkWin()
 
 })();
+
+// Game control Module
+const gameControl = (function() {
+    'use strict';
+    
+    const greetingScreen = document.getElementById(`greetingScreen`);
+    const gameScreen = document.getElementById(`gameScreen`);
+    const pvpBtn = document.getElementById(`pvpBtn`);
+    const pvaiBtn = document.getElementById(`pvaiBtn`);
+
+    pvpBtn.addEventListener(`click`, () => {
+        greetingScreen.classList.add(`hidden`);
+        gameScreen.classList.remove(`hidden`);
+    });
+
+    pvaiBtn.addEventListener(`click`, () => {
+        greetingScreen.classList.add(`hidden`);
+        gameScreen.classList.remove(`hidden`);
+    });
+
+})();
+
+
+// Player Factory
+const PlayerFactory = (name, symbol) => {
+    function playSymbol(target) {
+        if(target.textContent == ``) {
+            target.textContent = symbol;
+        }
+    }
+    return {name, playSymbol};
+}

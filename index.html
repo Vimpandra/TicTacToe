@@ -11,23 +11,34 @@
 </head>
 <body>
 
-    <div class="playersDisplay">
-        <h3>Player1</h3>
-        <h3>VS</h3>
-        <h3>Player2</h3>
+    <div class="greetingScreen" id="greetingScreen">
+        <h1>Welcome to Ultimate TicTacToe!</h1>
+        <div id="chooseGameMode" class="">
+            <h3>Which game mode would you like to play?</h3>
+            <button id="pvpBtn">Player vs Player<br>(PvP)</button>
+            <button id="pvaiBtn">Player vs Computer<br>(PvAI)</button>
+        </div>
     </div>
 
-    <div class="board">
-        <div class="square" id="a1"></div>
-        <div class="square" id="a2"></div>
-        <div class="square" id="a3">x</div>
-        <div class="square" id="b1"></div>
-        <div class="square" id="b2">x</div>
-        <div class="square" id="b3"></div>
-        <div class="square" id="c1">x</div>
-        <div class="square" id="c2"></div>
-        <div class="square" id="c3"></div>
+    <div class="hidden" id="gameScreen">
+        <div class="playersDisplay">
+            <h3>Player1</h3>
+            <h3>VS</h3>
+            <h3>Player2</h3>
+        </div>
+        
+        <div class="board">
+            <div class="square" id="a1"></div>
+            <div class="square" id="a2"></div>
+            <div class="square" id="a3"></div>
+            <div class="square" id="b1"></div>
+            <div class="square" id="b2"></div>
+            <div class="square" id="b3"></div>
+            <div class="square" id="c1"></div>
+            <div class="square" id="c2"></div>
+            <div class="square" id="c3"></div>
+        </div>
     </div>
-    
+        
 </body>
 </html>
