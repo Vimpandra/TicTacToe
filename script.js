@@ -13,6 +13,12 @@ const Board = (function() {
     'use strict';
     
     const squares = Array.from(document.getElementsByClassName(`square`));
+
+    function clearBoard() {
+        for (let i = 0; i < squares.length; i++) {
+            squares[i].textContent = ``;
+        }
+    }
     
     function checkWin() {
         if (
@@ -27,7 +33,8 @@ const Board = (function() {
             (squares[0].textContent === squares[4].textContent && squares[4].textContent === squares[8].textContent && squares[0].textContent !== ``) ||
             (squares[2].textContent === squares[4].textContent && squares[4].textContent === squares[6].textContent && squares[2].textContent !== ``)
         ) {
-            console.log(`Winner`);
+            gameControl.gameScreen.classList.add(`hidden`);
+            gameControl.endScreen.classList.remove(`hidden`);
         } else if (
             squares[0].textContent !== `` &&
             squares[1].textContent !== `` &&
@@ -44,7 +51,8 @@ const Board = (function() {
     }
     return {
         squares,
-        checkWin
+        checkWin,
+        clearBoard,
     }
 })();
 
@@ -54,8 +62,13 @@ const gameControl = (function() {
     
     const greetingScreen = document.getElementById(`greetingScreen`);
     const gameScreen = document.getElementById(`gameScreen`);
+    const endScreen = document.getElementById(`endScreen`);
     const pvpBtn = document.getElementById(`pvpBtn`);
     const pvaiBtn = document.getElementById(`pvaiBtn`);
+    const playAgainBtn = document.getElementById(`playAgainBtn`);
+    const changeModeBtn = document.getElementById(`changeModeBtn`);
+
+    
 
     pvpBtn.addEventListener(`click`, () => {
         greetingScreen.classList.add(`hidden`);
@@ -77,6 +90,19 @@ const gameControl = (function() {
         });
     });
 
+    playAgainBtn.addEventListener(`click`, () => {
+        Board.clearBoard();
+        endScreen.classList.add(`hidden`);
+        gameScreen.classList.remove(`hidden`);
+    });
+
+    function drawEndScreen() {
+
+    }
+
+    return {
+        greetingScreen, gameScreen, endScreen,
+    }
 })();
 
 // AI Module

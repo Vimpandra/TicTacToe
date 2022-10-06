@@ -24,7 +24,7 @@ body {
     margin-bottom: 1rem;
 }
 
-.greetingScreen button {
+.blackBtn {
     border: none;
     background-color: black;
     color: white;
@@ -60,6 +60,25 @@ body {
     align-items: center;
     justify-content: center;
     font-size: 14vh;
+}
+
+/* End Screen */
+.endScreen {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.endScreen h3 {
+    margin-bottom: 0.4rem;
+}
+
+.btnContainer {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Global Classes */
