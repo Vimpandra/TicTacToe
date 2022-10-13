@@ -63,10 +63,15 @@ const gameControl = (function() {
     const greetingScreen = document.getElementById(`greetingScreen`);
     const gameScreen = document.getElementById(`gameScreen`);
     const endScreen = document.getElementById(`endScreen`);
+    const pvaiInput = document.getElementById(`pvaiInput`);
+
     const pvpBtn = document.getElementById(`pvpBtn`);
     const pvaiBtn = document.getElementById(`pvaiBtn`);
     const playAgainBtn = document.getElementById(`playAgainBtn`);
     const changeModeBtn = document.getElementById(`changeModeBtn`);
+    
+    const startPvaiBtn = document.getElementById(`startPvaiBtn`);
+    const playerName = document.getElementById(`playerName`);
 
     
 
@@ -77,17 +82,36 @@ const gameControl = (function() {
 
     pvaiBtn.addEventListener(`click`, () => {
         greetingScreen.classList.add(`hidden`);
-        gameScreen.classList.remove(`hidden`);
+        pvaiInput.classList.remove(`hidden`);
+    });
 
-        const player1 = PlayerFactory(`Player 1`, `X`);
-        Board.squares.forEach(square => {
-            square.addEventListener(`click`, () => {
-                player1.playSymbol(square);
-                Board.checkWin();
-                basicAI.randomPlay();
-                Board.checkWin();
+    startPvaiBtn.addEventListener(`click`, () => {
+        pvaiInput.classList.add(`hidden`);
+        gameScreen.classList.remove(`hidden`);
+        
+        let player1;
+        if (document.getElementById(`symbolX`).checked) {
+            player1 = PlayerFactory(playerName.value, `X`);
+            Board.squares.forEach(square => {
+                square.addEventListener(`click`, () => {
+                    player1.playSymbol(square);
+                    Board.checkWin();
+                    basicAI.randomPlay(`O`);
+                    Board.checkWin();
+                });
             });
-        });
+        } else if (document.getElementById(`symbolO`).checked) {
+            player1 = PlayerFactory(playerName.value, `O`);
+            Board.squares.forEach(square => {
+                square.addEventListener(`click`, () => {
+                    player1.playSymbol(square);
+                    Board.checkWin();
+                    basicAI.randomPlay(`X`);
+                    Board.checkWin();
+                });
+            });
+            basicAI.randomPlay(`X`);
+        }
     });
 
     playAgainBtn.addEventListener(`click`, () => {
@@ -108,12 +132,11 @@ const gameControl = (function() {
 // AI Module
 const basicAI = {
     name: `Easy AI`,
-    symbol: `O`,
 
-    randomPlay: function() {
+    randomPlay: function(symbol) {
         let randomTarget = Math.floor(Math.random() * Board.squares.length);
         if(Board.squares[randomTarget].textContent == ``) {
-            Board.squares[randomTarget].textContent = this.symbol;
+            Board.squares[randomTarget].textContent = symbol;
         } else if (
             Board.squares[0].textContent !== `` &&
             Board.squares[1].textContent !== `` &&

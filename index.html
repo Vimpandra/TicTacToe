@@ -22,6 +22,26 @@
         </div>
     </div>
 
+    <div class="gamemodeInputs hidden" id="pvaiInput">
+        <h1>Welcome to Ultimate TicTacToe!</h1>
+        <h2>Would you like to go first?</h2>
+        <div class="symbolInput">
+            <div>
+                <input type="radio" name="symbol" id="symbolX" value="X" checked>
+                <label for="symbolX">Yes, go first</label>
+            </div>
+            <div>
+                <input type="radio" name="symbol" id="symbolO" value="O">
+                <label for="symbolO">No, go second</label>
+            </div>
+        </div>
+        <div class="nameInput">
+            <label for="playerName">Please enter your name:</label>
+            <input type="text" name="playerName" id="playerName" required>
+        </div>
+        <button class="blackBtn" id="startPvaiBtn">Start game!</button>
+    </div>
+
     <div class="hidden" id="gameScreen">
         <div class="playersDisplay">
             <h3>Player1</h3>

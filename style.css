@@ -24,15 +24,31 @@ body {
     margin-bottom: 1rem;
 }
 
-.blackBtn {
-    border: none;
-    background-color: black;
-    color: white;
-    font-size: 1rem;
-    font-weight: bold;
-    padding: 0.8rem 2rem;
-    border-radius: 8px;
-    cursor: pointer;
+/* pvai Input */
+.gamemodeInputs h1 {
+    margin-bottom: 1rem;
+}
+.gamemodeInputs h2 {
+    margin-bottom: -1rem;
+}
+
+.gamemodeInputs {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.gamemodeInputs .nameInput {
+    display: flex;
+    flex-direction: column;
+}
+
+.gamemodeInputs .symbolInput {
+    display: flex;
+    gap:  2rem;
 }
 
 /* Game Screen */
@@ -82,6 +98,17 @@ body {
 }
 
 /* Global Classes */
+.blackBtn {
+    border: none;
+    background-color: black;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 0.8rem 2rem;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
 .hidden {
     display: none;
 }
