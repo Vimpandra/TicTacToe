@@ -89,6 +89,8 @@ const gameControl = (function() {
     let player1score = 0;
     let player2score = 0;
 
+    let currentGameMode;
+
     pvpBtn.addEventListener(`click`, () => {
         greetingScreen.classList.add(`hidden`);
         gameScreen.classList.remove(`hidden`);
@@ -104,39 +106,11 @@ const gameControl = (function() {
         gameScreen.classList.remove(`hidden`);
         
         if (document.getElementById(`symbolX`).checked) {
-            player1 = PlayerFactory(playerName.value, `X`);
-            player2 = basicAI;
-            Board.squares.forEach(square => {
-                square.addEventListener(`click`, () => {
-                    player1.playSymbol(square);
-                    if (Board.checkWin() === `X`) {
-                        player1score += 1;
-                        drawEndScreen(player1);
-                    } else if (Board.checkWin() === `Draw`) {
-                        drawEndScreen(`draw`)
-                    }
-
-                    basicAI.randomPlay(`O`);
-                    if (Board.checkWin() === `O`) {
-                        player2score += 1;
-                        drawEndScreen(player2);
-                    } else if (Board.checkWin() === `Draw`) {
-                        drawEndScreen(`draw`)
-                    }
-                });
-            });
+            gameMode_PxAIo();
+            currentGameMode = `PxAIo`;
         } else if (document.getElementById(`symbolO`).checked) {
-            player1 = PlayerFactory(playerName.value, `O`);
-            player2 = basicAI;
-            basicAI.randomPlay(`X`)
-            Board.squares.forEach(square => {
-                square.addEventListener(`click`, () => {
-                    player1.playSymbol(square);
-                    Board.checkWin();
-                    basicAI.randomPlay(`X`);
-                    Board.checkWin();
-                });
-            });
+            gameMode_PoAIx();
+            currentGameMode = `PoAIx`;
         }
     });
 
@@ -144,6 +118,10 @@ const gameControl = (function() {
         Board.clearBoard();
         endScreen.classList.add(`hidden`);
         gameScreen.classList.remove(`hidden`);
+        if (currentGameMode = `PoAIx`) {
+            basicAI.randomPlay(`X`);
+        }
+
     });
 
     function drawEndScreen(winner) {
@@ -163,6 +141,55 @@ const gameControl = (function() {
             mainText.textContent = `${winner.name} is the winner`;
             gameScore.innerHTML = `${player1.name} <strong>${player1score} X ${player2score}</strong> ${player2.name}`;
         }
+    }
+
+    function gameMode_PxAIo() {
+        player1 = PlayerFactory(playerName.value, `X`);
+        player2 = basicAI;
+        Board.squares.forEach(square => {
+            square.addEventListener(`click`, () => {
+                player1.playSymbol(square);
+                if (Board.checkWin() === `X`) {
+                    player1score += 1;
+                    drawEndScreen(player1);
+                } else if (Board.checkWin() === `Draw`) {
+                    drawEndScreen(`draw`)
+                } else if (!gameScreen.classList.contains(`hidden`)) {
+                    basicAI.randomPlay(`O`);
+                    if (Board.checkWin() === `O`) {
+                        player2score += 1;
+                        drawEndScreen(player2);
+                    } else if (Board.checkWin() === `Draw`) {
+                        drawEndScreen(`draw`)
+                    }
+                }
+            });
+        });
+    }
+
+    function gameMode_PoAIx() {
+        player1 = PlayerFactory(playerName.value, `O`);
+        player2 = basicAI;
+        basicAI.randomPlay(`X`)
+        Board.squares.forEach(square => {
+            square.addEventListener(`click`, () => {
+                player1.playSymbol(square);
+                if (Board.checkWin() === `O`) {
+                    player1score += 1;
+                    drawEndScreen(player1);
+                } else if (Board.checkWin() === `Draw`) {
+                    drawEndScreen(`draw`)
+                } else if (!gameScreen.classList.contains(`hidden`)) {
+                    basicAI.randomPlay(`X`);
+                    if (Board.checkWin() === `X`) {
+                        player2score += 1;
+                        drawEndScreen(player2);
+                    } else if (Board.checkWin() === `Draw`) {
+                        drawEndScreen(`draw`)
+                    }
+                }
+            });
+        });
     }
 
     return {
