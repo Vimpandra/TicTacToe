@@ -5,7 +5,7 @@ const PlayerFactory = (name, symbol) => {
             target.textContent = symbol;
         }
     }
-    return {name, playSymbol};
+    return {name, symbol, playSymbol};
 }
 
 // Board Module
@@ -102,6 +102,7 @@ const gameControl = (function() {
             });
         } else if (document.getElementById(`symbolO`).checked) {
             player1 = PlayerFactory(playerName.value, `O`);
+            basicAI.randomPlay(`X`)
             Board.squares.forEach(square => {
                 square.addEventListener(`click`, () => {
                     player1.playSymbol(square);
@@ -110,7 +111,6 @@ const gameControl = (function() {
                     Board.checkWin();
                 });
             });
-            basicAI.randomPlay(`X`);
         }
     });
 
@@ -119,10 +119,6 @@ const gameControl = (function() {
         endScreen.classList.add(`hidden`);
         gameScreen.classList.remove(`hidden`);
     });
-
-    function drawEndScreen() {
-
-    }
 
     return {
         greetingScreen, gameScreen, endScreen,
@@ -134,23 +130,26 @@ const basicAI = {
     name: `Easy AI`,
 
     randomPlay: function(symbol) {
-        let randomTarget = Math.floor(Math.random() * Board.squares.length);
-        if(Board.squares[randomTarget].textContent == ``) {
-            Board.squares[randomTarget].textContent = symbol;
-        } else if (
-            Board.squares[0].textContent !== `` &&
-            Board.squares[1].textContent !== `` &&
-            Board.squares[2].textContent !== `` &&
-            Board.squares[3].textContent !== `` &&
-            Board.squares[4].textContent !== `` &&
-            Board.squares[5].textContent !== `` &&
-            Board.squares[6].textContent !== `` &&
-            Board.squares[7].textContent !== `` &&
-            Board.squares[8].textContent !== ``
+        if (
+            Board.squares[0].textContent != `` &&
+            Board.squares[1].textContent != `` &&
+            Board.squares[2].textContent != `` &&
+            Board.squares[3].textContent != `` &&
+            Board.squares[4].textContent != `` &&
+            Board.squares[5].textContent != `` &&
+            Board.squares[6].textContent != `` &&
+            Board.squares[7].textContent != `` &&
+            Board.squares[8].textContent != ``
         ) {
-            return;
-        } else {
-            basicAI.randomPlay();
+            return
         }
+
+        let randomTarget;  
+        do {
+            randomTarget = Math.floor(Math.random() * Board.squares.length);
+        } while (Board.squares[randomTarget].textContent != ``);
+
+        Board.squares[randomTarget].textContent = symbol;
+
     },
 }
