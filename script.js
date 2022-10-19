@@ -1,7 +1,7 @@
 // Player Factory
 const PlayerFactory = (name, symbol) => {
     function playSymbol(target) {
-        if(target.textContent == ``) {
+        if(target.textContent === ``) {
             target.textContent = symbol;
         }
     }
@@ -115,10 +115,10 @@ const gameControl = (function() {
     });
 
     playAgainBtn.addEventListener(`click`, () => {
-        Board.clearBoard();
         endScreen.classList.add(`hidden`);
         gameScreen.classList.remove(`hidden`);
-        if (currentGameMode = `PoAIx`) {
+        Board.clearBoard();
+        if (currentGameMode === `PoAIx`) {
             basicAI.randomPlay(`X`);
         }
 
@@ -148,6 +148,7 @@ const gameControl = (function() {
         player2 = basicAI;
         Board.squares.forEach(square => {
             square.addEventListener(`click`, () => {
+                if (square.textContent !== ``) return;
                 player1.playSymbol(square);
                 if (Board.checkWin() === `X`) {
                     player1score += 1;
@@ -173,6 +174,7 @@ const gameControl = (function() {
         basicAI.randomPlay(`X`)
         Board.squares.forEach(square => {
             square.addEventListener(`click`, () => {
+                if (square.textContent !== ``) return;
                 player1.playSymbol(square);
                 if (Board.checkWin() === `O`) {
                     player1score += 1;
