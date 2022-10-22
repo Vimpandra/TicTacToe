@@ -133,6 +133,11 @@ body {
     cursor: pointer;
 }
 
+.thisTurn {
+    background-color: black;
+    color: white;
+}
+
 .hidden {
     display: none;
 }

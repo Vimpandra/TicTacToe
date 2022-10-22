@@ -169,6 +169,7 @@ const gameControl = (function() {
         for (let i = 0; i < Board.squares.length; i++) {
             Board.squares[i].addEventListener(`click`, _play1);
         }
+        player1displayName.classList.add(`thisTurn`);
 
         function _play1() {
             if (this.textContent !== ``) return;
@@ -187,6 +188,8 @@ const gameControl = (function() {
             for (let i = 0; i < Board.squares.length; i++) {
                 Board.squares[i].addEventListener(`click`, _play2)
             }
+            player1displayName.classList.remove(`thisTurn`);
+            player2displayName.classList.add(`thisTurn`);
         }
 
         function _play2() {
@@ -206,6 +209,8 @@ const gameControl = (function() {
             for (let i = 0; i < Board.squares.length; i++) {
                 Board.squares[i].addEventListener(`click`, _play1)
             }
+            player2displayName.classList.remove(`thisTurn`);
+            player1displayName.classList.add(`thisTurn`);
         }
     }
 
