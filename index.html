@@ -22,6 +22,23 @@
         </div>
     </div>
 
+    <div class="pvpInput hidden" id="pvpInput">
+        <h1>Welcome to Ultimate TicTacToe!</h1>
+        <div class="inputContainer">
+            <div class="inputCard">
+                <h2>Player 1</h2>
+                <label for="player1name">Name of who goes first</label>
+                <input type="text" name="player1name" id="player1name">
+            </div>
+            <div class="inputCard">
+                <h2>Player 2</h2>
+                <label for="player1name">Name of who goes last</label>
+                <input type="text" name="player2name" id="player2name">
+            </div>
+        </div>
+        <button class="blackBtn" id="startPvpBtn">Start game!</button>
+    </div>
+
     <div class="gamemodeInputs hidden" id="pvaiInput">
         <h1>Welcome to Ultimate TicTacToe!</h1>
         <h2>Would you like to go first?</h2>
@@ -44,9 +61,9 @@
 
     <div class="hidden" id="gameScreen">
         <div class="playersDisplay">
-            <h3>Player1</h3>
+            <h3 id="player1displayName">Player1</h3>
             <h3>VS</h3>
-            <h3>Player2</h3>
+            <h3 id="player2displayName">Player2</h3>
         </div>
         
         <div class="board">

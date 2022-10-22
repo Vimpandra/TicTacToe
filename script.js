@@ -73,6 +73,10 @@ const gameControl = (function() {
     const gameScreen = document.getElementById(`gameScreen`);
     const endScreen = document.getElementById(`endScreen`);
     const pvaiInput = document.getElementById(`pvaiInput`);
+    const pvpInput = document.getElementById(`pvpInput`);
+
+    const player1displayName = document.getElementById(`player1displayName`);
+    const player2displayName = document.getElementById(`player2displayName`);
 
     const pvpBtn = document.getElementById(`pvpBtn`);
     const pvaiBtn = document.getElementById(`pvaiBtn`);
@@ -82,6 +86,10 @@ const gameControl = (function() {
     
     const startPvaiBtn = document.getElementById(`startPvaiBtn`);
     const playerName = document.getElementById(`playerName`);
+
+    const player1name = document.getElementById(`player1name`);
+    const player2name = document.getElementById(`player2name`);
+    const startPvpBtn = document.getElementById(`startPvpBtn`);
 
     let player1;
     let player2;
@@ -93,12 +101,22 @@ const gameControl = (function() {
 
     pvpBtn.addEventListener(`click`, () => {
         greetingScreen.classList.add(`hidden`);
-        gameScreen.classList.remove(`hidden`);
+        pvpInput.classList.remove(`hidden`);
     });
 
     pvaiBtn.addEventListener(`click`, () => {
         greetingScreen.classList.add(`hidden`);
         pvaiInput.classList.remove(`hidden`);
+    });
+
+    startPvpBtn.addEventListener(`click`, () => {
+        pvpInput.classList.add(`hidden`);
+        gameScreen.classList.remove(`hidden`);
+        player1 = PlayerFactory(player1name.value, `X`);
+        player2 = PlayerFactory(player2name.value, `O`);
+        player1displayName.textContent = player1.name;
+        player2displayName.textContent = player2.name;
+        _pvp_player1turn();
     });
 
     startPvaiBtn.addEventListener(`click`, () => {
@@ -147,9 +165,55 @@ const gameControl = (function() {
         }
     }
 
+    function _pvp_player1turn() {
+        for (let i = 0; i < Board.squares.length; i++) {
+            Board.squares[i].addEventListener(`click`, _play1);
+        }
+
+        function _play1() {
+            if (this.textContent !== ``) return;
+            player1.playSymbol(this);
+            
+            if (Board.checkWin() === `X`) {
+                player1score += 1;
+                drawEndScreen(player1)
+            } else if (Board.checkWin() === `Draw`) {
+                drawEndScreen(`draw`);
+            }
+
+            for (let i = 0; i < Board.squares.length; i++) {
+                Board.squares[i].removeEventListener(`click`, _play1);
+            }
+            for (let i = 0; i < Board.squares.length; i++) {
+                Board.squares[i].addEventListener(`click`, _play2)
+            }
+        }
+
+        function _play2() {
+            if (this.textContent !== ``) return;
+            player2.playSymbol(this);
+            
+            if (Board.checkWin() === `O`) {
+                player2score += 1;
+                drawEndScreen(player2)
+            } else if (Board.checkWin() === `Draw`) {
+                drawEndScreen(`draw`);
+            }
+
+            for (let i = 0; i < Board.squares.length; i++) {
+                Board.squares[i].removeEventListener(`click`, _play2);
+            }
+            for (let i = 0; i < Board.squares.length; i++) {
+                Board.squares[i].addEventListener(`click`, _play1)
+            }
+        }
+    }
+
     function gameMode_PxAIo() {
         player1 = PlayerFactory(playerName.value, `X`);
         player2 = basicAI;
+        player1displayName.textContent = player1.name;
+        player2displayName.textContent = player2.name;
         Board.squares.forEach(square => {
             square.addEventListener(`click`, () => {
                 if (square.textContent !== ``) return;
@@ -175,6 +239,8 @@ const gameControl = (function() {
     function gameMode_PoAIx() {
         player1 = PlayerFactory(playerName.value, `O`);
         player2 = basicAI;
+        player1displayName.textContent = player1.name;
+        player2displayName.textContent = player2.name;
         basicAI.randomPlay(`X`)
         Board.squares.forEach(square => {
             square.addEventListener(`click`, () => {

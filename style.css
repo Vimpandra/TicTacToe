@@ -24,7 +24,31 @@ body {
     margin-bottom: 1rem;
 }
 
-/* pvai Input */
+/* PvP Input */
+.pvpInput {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.pvpInput h1 {
+    margin-bottom: 2rem;
+}
+
+.pvpInput .inputContainer {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.inputCard {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+/* PvAI Input */
 .gamemodeInputs h1 {
     margin-bottom: 1rem;
 }
