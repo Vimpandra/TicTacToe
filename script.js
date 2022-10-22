@@ -124,6 +124,10 @@ const gameControl = (function() {
 
     });
 
+    changeModeBtn.addEventListener(`click`, () => {
+        window.location.href = window.location.href
+    });
+
     function drawEndScreen(winner) {
         const mainText = document.getElementById(`mainText`);
         const gameScore = document.getElementById(`gameScore`);

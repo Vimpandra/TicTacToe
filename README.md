@@ -3,7 +3,6 @@ My TicTacToe project for The Odin Project's fullstack javascript developer cours
 
 TO DO:
 
-- Add functionality to the "change mode" button at endScreen
 - Add a PvP inputs screen
 - Add PvP game mode
 - Add dificulty levels to the AI
