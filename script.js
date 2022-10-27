@@ -122,13 +122,32 @@ const gameControl = (function() {
     startPvaiBtn.addEventListener(`click`, () => {
         pvaiInput.classList.add(`hidden`);
         gameScreen.classList.remove(`hidden`);
+
+        const symbolX = document.getElementById(`symbolX`);
+        const symbolO = document.getElementById(`symbolO`);
+        const easy = document.getElementById(`easy`);
+        const expert = document.getElementById(`expert`);
         
-        if (document.getElementById(`symbolX`).checked) {
-            gameMode_PxAIo();
+        if (symbolX.checked && easy.checked) {
+            player1 = PlayerFactory(playerName.value, `X`);
+            player2 = basicAI;
             currentGameMode = `PxAIo`;
-        } else if (document.getElementById(`symbolO`).checked) {
-            gameMode_PoAIx();
+            gameMode_PxAIo();
+        } else if (symbolO.checked && easy.checked) {
+            player1 = PlayerFactory(playerName.value, `O`);
+            player2 = basicAI;
             currentGameMode = `PoAIx`;
+            gameMode_PoAIx();
+        } else if (symbolX.checked && expert.checked) {
+            player1 = PlayerFactory(playerName.value, `X`);
+            player2 = expertAI;
+            currentGameMode = `PxAIo`;
+            gameMode_PxAIo();
+        } else if (symbolO.checked && expert.checked) {
+            player1 = PlayerFactory(playerName.value, `O`);
+            player2 = expertAI;
+            currentGameMode = `PoAIx`;
+            gameMode_PoAIx(); 
         }
     });
 
@@ -137,7 +156,7 @@ const gameControl = (function() {
         gameScreen.classList.remove(`hidden`);
         Board.clearBoard();
         if (currentGameMode === `PoAIx`) {
-            basicAI.randomPlay(`X`);
+            player2.playMove(`X`);
         }
 
     });
@@ -215,8 +234,6 @@ const gameControl = (function() {
     }
 
     function gameMode_PxAIo() {
-        player1 = PlayerFactory(playerName.value, `X`);
-        player2 = basicAI;
         player1displayName.textContent = player1.name;
         player2displayName.textContent = player2.name;
         Board.squares.forEach(square => {
@@ -229,7 +246,7 @@ const gameControl = (function() {
                 } else if (Board.checkWin() === `Draw`) {
                     drawEndScreen(`draw`)
                 } else if (!gameScreen.classList.contains(`hidden`)) {
-                    basicAI.randomPlay(`O`);
+                    player2.playMove(`O`);
                     if (Board.checkWin() === `O`) {
                         player2score += 1;
                         drawEndScreen(player2);
@@ -242,11 +259,9 @@ const gameControl = (function() {
     }
 
     function gameMode_PoAIx() {
-        player1 = PlayerFactory(playerName.value, `O`);
-        player2 = basicAI;
         player1displayName.textContent = player1.name;
         player2displayName.textContent = player2.name;
-        basicAI.randomPlay(`X`)
+        player2.playMove(`X`)
         Board.squares.forEach(square => {
             square.addEventListener(`click`, () => {
                 if (square.textContent !== ``) return;
@@ -257,7 +272,7 @@ const gameControl = (function() {
                 } else if (Board.checkWin() === `Draw`) {
                     drawEndScreen(`draw`)
                 } else if (!gameScreen.classList.contains(`hidden`)) {
-                    basicAI.randomPlay(`X`);
+                    player2.playMove(`X`);
                     if (Board.checkWin() === `X`) {
                         player2score += 1;
                         drawEndScreen(player2);
@@ -274,11 +289,11 @@ const gameControl = (function() {
     }
 })();
 
-// AI Module
+// AI Modules
 const basicAI = {
     name: `Easy AI`,
 
-    randomPlay: function(symbol) {
+    playMove: function(symbol) {
         if (
             Board.squares[0].textContent != `` &&
             Board.squares[1].textContent != `` &&
@@ -299,3 +314,64 @@ const basicAI = {
 
     },
 }
+
+const expertAI = (function() {
+    `use strict`;
+
+    function playMove(symbol) {
+        _getBestMove();
+    };
+
+    function _getBestMove() {
+        let ableMoves = [];
+        let moveScores = [];
+        let imaginaryBoard = [];
+        let depth = 0;
+
+        for (let i = 0; i < Board.squares.length; i++) {
+            imaginaryBoard.push(Board.squares[i].textContent);
+        }
+                
+        for (let i = 0; i < Board.squares.length; i++) {
+            if (Board.squares[i].textContent === ``) {
+                ableMoves.push(i);
+            }
+        }
+
+        
+        
+        console.log(ableMoves);
+        console.log(moveScores);
+    };
+
+    function _checkPlay(board) {
+        if (
+            (board[0] === `X` && board[1] === `X` && board[2] === `X`) ||
+            (board[3] === `X` && board[4] === `X` && board[5] === `X`) ||
+            (board[6] === `X` && board[7] === `X` && board[8] === `X`) ||
+            (board[0] === `X` && board[3] === `X` && board[6] === `X`) ||
+            (board[1] === `X` && board[4] === `X` && board[7] === `X`) ||
+            (board[2] === `X` && board[5] === `X` && board[8] === `X`) ||
+            (board[0] === `X` && board[4] === `X` && board[8] === `X`) ||
+            (board[2] === `X` && board[4] === `X` && board[6] === `X`)
+        ) {
+            return +100;
+        } else if (
+            (board[0] === `O` && board[1] === `O` && board[2] === `O`) ||
+            (board[3] === `O` && board[4] === `O` && board[5] === `O`) ||
+            (board[6] === `O` && board[7] === `O` && board[8] === `O`) ||
+            (board[0] === `O` && board[3] === `O` && board[6] === `O`) ||
+            (board[1] === `O` && board[4] === `O` && board[7] === `O`) ||
+            (board[2] === `O` && board[5] === `O` && board[8] === `O`) ||
+            (board[0] === `O` && board[4] === `O` && board[8] === `O`) ||
+            (board[2] === `O` && board[4] === `O` && board[6] === `O`)
+        ) {
+            return -100;
+        } else return 0;
+    };
+
+    return {
+        name: `Expert AI`,
+        playMove,
+    }
+})();
