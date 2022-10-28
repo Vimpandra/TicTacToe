@@ -12,71 +12,78 @@
 <body>
 
     <div class="greetingScreen" id="greetingScreen">
-        <h1>Welcome to Ultimate TicTacToe!</h1>
-        <div id="chooseGameMode" class="">
-            <h3>Which game mode would you like to play?</h3>
-            <div class="btnContainer">    
-                <button class="blackBtn" id="pvpBtn">Player vs Player<br>(PvP)</button>
-                <button class="blackBtn" id="pvaiBtn">Player vs Computer<br>(PvAI)</button>
-            </div>
+        <div class="topBar">
+            <h1>Ultimate TicTacToe</h1>
+        </div>
+        <h3>Which game mode would you like to play?</h3>
+        <div class="btnContainer">    
+            <button class="blackBtn" id="pvpBtn">Player vs Player<br>(PvP)</button>
+            <button class="blackBtn" id="pvaiBtn">Player vs Computer<br>(PvAI)</button>
         </div>
     </div>
 
     <div class="pvpInput hidden" id="pvpInput">
-        <h1>Welcome to Ultimate TicTacToe!</h1>
+        <div class="topBar">
+            <h1>Ultimate TicTacToe</h1>
+        </div>
         <div class="inputContainer">
             <div class="inputCard">
+                <h2 class="playerSymbol">X</h2>
                 <h2>Player 1</h2>
                 <label for="player1name">Name of who goes first</label>
-                <input type="text" name="player1name" id="player1name">
+                <input type="text" name="player1name" id="player1name" class="textInput">
             </div>
             <div class="inputCard">
+                <h2 class="playerSymbol">O</h2>
                 <h2>Player 2</h2>
                 <label for="player1name">Name of who goes last</label>
-                <input type="text" name="player2name" id="player2name">
+                <input type="text" name="player2name" id="player2name" class="textInput">
             </div>
         </div>
         <button class="blackBtn" id="startPvpBtn">Start game!</button>
     </div>
 
     <div class="gamemodeInputs hidden" id="pvaiInput">
-        <h1>Welcome to Ultimate TicTacToe!</h1>
-        <h2>Would you like to go first?</h2>
-        <div class="symbolInput">
-            <div>
-                <input type="radio" name="symbol" id="symbolX" value="X" checked>
-                <label for="symbolX">Yes, go first</label>
-            </div>
-            <div>
-                <input type="radio" name="symbol" id="symbolO" value="O">
-                <label for="symbolO">No, go second</label>
+        <div class="topBar">
+            <h1>Ultimate TicTacToe</h1>
+        </div>
+        <div class="cardContainer">
+            <h2>Would you like to go first?</h2>
+            <div class="symbolInput">
+                <div>
+                    <input type="radio" name="symbol" id="symbolX" value="X" checked>
+                    <label for="symbolX">Yes, go first</label>
+                </div>
+                <div>
+                    <input type="radio" name="symbol" id="symbolO" value="O">
+                    <label for="symbolO">No, go second</label>
+                </div>
             </div>
         </div>
-        <h2>Please choose a level of difficulty</h2>
-        <div class="symbolInput">
-            <div>
-                <input type="radio" name="difficulty" id="easy" checked>
-                <label for="easy">Easy</label>
-            </div>
-            <div>
-                <input type="radio" name="difficulty" id="expert">
-                <label for="expert">Expert</label>
+        <div class="cardContainer">
+            <h2>Please choose a level of difficulty</h2>
+            <div class="symbolInput">
+                <div>
+                    <input type="radio" name="difficulty" id="easy" checked>
+                    <label for="easy">Easy</label>
+                </div>
+                <div>
+                    <input type="radio" name="difficulty" id="expert">
+                    <label for="expert">Expert</label>
+                </div>
             </div>
         </div>
         <div class="nameInput">
             <label for="playerName">Please enter your name:</label>
-            <input type="text" name="playerName" id="playerName" required>
+            <input type="text" name="playerName" id="playerName" class="textInput" required>
         </div>
         <button class="blackBtn" id="startPvaiBtn">Start game!</button>
     </div>
 
-    <div class="hidden" id="gameScreen">
-        <div class="playersDisplay">
-            <h3 id="player1displayName">Player1</h3>
-            <h3>VS</h3>
-            <h3 id="player2displayName">Player2</h3>
+    <div class="gameScreen hidden" id="gameScreen">
+        <div class="topBar">
+            <h1>Ultimate TicTacToe</h1>
         </div>
-        
         <div class="board">
             <div class="square" id="a1"></div>
             <div class="square" id="a2"></div>
@@ -87,6 +94,23 @@
             <div class="square" id="c1"></div>
             <div class="square" id="c2"></div>
             <div class="square" id="c3"></div>
+        </div>
+        <div class="playersDisplay">
+            <div class="playerCard">
+                <h3 class="symbol">X</h3>
+                <h3 class="playerName" id="player1displayName">Player1</h3>
+                <h3 class="currentScore" id="p1score">0</h3>
+            </div>
+            <div class="gameCount">
+                <p>Games</p>
+                <p id="gameCount">0</p>
+            </div>
+            <div class="playerCard">
+                <h3 class="symbol">O</h3>
+                <h3 class="playerName" id="player2displayName">Player2</h3>
+                <h3 class="currentScore" id="p2score">0</h3>
+            </div>
+            <div class="whoseTurn"></div>
         </div>
     </div>
     
