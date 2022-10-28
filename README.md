@@ -5,5 +5,5 @@ Live Preview: https://vimpandra.github.io/TicTacToe/
 
 TO DO:
 
-- Add dificulty levels to the AI
-- Design a proper UI
+- Minmax algorithm needs to be properly done once I learn recursive functions
+- UI needs animations and transitions
