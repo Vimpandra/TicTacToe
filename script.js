@@ -91,11 +91,17 @@ const gameControl = (function() {
     const player2name = document.getElementById(`player2name`);
     const startPvpBtn = document.getElementById(`startPvpBtn`);
 
+    const p1score = document.getElementById(`p1score`);
+    const p2score = document.getElementById(`p2score`);
+    const gameCountDisplay = document.getElementById(`gameCountDisplay`);
+    const turnIndicator = document.getElementById(`turnIndicator`);
+
     let player1;
     let player2;
 
     let player1score = 0;
     let player2score = 0;
+    let gameCount = 0;
 
     let currentGameMode;
 
@@ -154,6 +160,9 @@ const gameControl = (function() {
     playAgainBtn.addEventListener(`click`, () => {
         endScreen.classList.add(`hidden`);
         gameScreen.classList.remove(`hidden`);
+        gameCountDisplay.textContent = gameCount;
+        p1score.textContent = player1score;
+        p2score.textContent = player2score;
         Board.clearBoard();
         if (currentGameMode === `PoAIx`) {
             player2.playMove(`X`);
@@ -173,14 +182,16 @@ const gameControl = (function() {
         gameScreen.classList.add(`hidden`);
         endScreen.classList.remove(`hidden`);
 
+        gameCount += 1;
+
         if (winner === `draw`) {
             topText.textContent = `Oh no!`
             mainText.textContent = `It's a draw, nobody wins`;
-            gameScore.innerHTML = `${player1.name} <strong>${player1score} X ${player2score}</strong> ${player2.name}`;
+            gameScore.innerHTML = `${player1.name} <strong class="yellow">${player1score}</strong> X <strong class="yellow">${player2score}</strong> ${player2.name}`;
         } else {   
             topText.textContent = `Congratulations!`
             mainText.textContent = `${winner.name} is the winner`;
-            gameScore.innerHTML = `${player1.name} <strong>${player1score} X ${player2score}</strong> ${player2.name}`;
+            gameScore.innerHTML = `${player1.name} <strong class="yellow">${player1score}</strong> X <strong class="yellow">${player2score}</strong> ${player2.name}`;
         }
     }
 
@@ -188,7 +199,6 @@ const gameControl = (function() {
         for (let i = 0; i < Board.squares.length; i++) {
             Board.squares[i].addEventListener(`click`, _play1);
         }
-        player1displayName.classList.add(`thisTurn`);
 
         function _play1() {
             if (this.textContent !== ``) return;
@@ -207,8 +217,8 @@ const gameControl = (function() {
             for (let i = 0; i < Board.squares.length; i++) {
                 Board.squares[i].addEventListener(`click`, _play2)
             }
-            player1displayName.classList.remove(`thisTurn`);
-            player2displayName.classList.add(`thisTurn`);
+            turnIndicator.classList.remove(`p1turn`);
+            turnIndicator.classList.add(`p2turn`);
         }
 
         function _play2() {
@@ -228,8 +238,8 @@ const gameControl = (function() {
             for (let i = 0; i < Board.squares.length; i++) {
                 Board.squares[i].addEventListener(`click`, _play1)
             }
-            player2displayName.classList.remove(`thisTurn`);
-            player1displayName.classList.add(`thisTurn`);
+            turnIndicator.classList.remove(`p2turn`);
+            turnIndicator.classList.add(`p1turn`);
         }
     }
 

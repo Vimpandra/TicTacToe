@@ -206,7 +206,11 @@ body {
     height: 0.4rem;
     width: 8rem;
     bottom: 0;
-    transition: all 0.6s;
+    transition: all 600ms;
+}
+
+.whoseTurn.p1turn {
+    left: 1rem;
 }
 
 .whoseTurn.p2turn {
@@ -215,9 +219,11 @@ body {
 
 /* End Screen */
 .endScreen {
+    height: 100vh;
     text-align: center;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     gap: 2rem;
 }
 
@@ -234,6 +240,24 @@ body {
     margin-bottom: 4rem;
 }
 
+.mainMessage {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-dark);
+}
+#mainText {
+    font-size: 2rem;
+}
+
+#gameScore {
+    font-size: 1.6rem;
+    color: var(--color-dark);
+}
+
+.yellow {
+    color: var(--color-accent);
+}
+
 /* Global Classes */
 .blackBtn {
     border: none;
@@ -245,11 +269,6 @@ body {
     padding: 0.8rem 2rem;
     cursor: pointer;
 }
-
-/* .thisTurn {
-    background-color: black;
-    color: white;
-} */
 
 .textInput {
     padding: 0.4rem;

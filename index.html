@@ -103,21 +103,24 @@
             </div>
             <div class="gameCount">
                 <p>Games</p>
-                <p id="gameCount">0</p>
+                <p id="gameCountDisplay">0</p>
             </div>
             <div class="playerCard">
                 <h3 class="symbol">O</h3>
                 <h3 class="playerName" id="player2displayName">Player2</h3>
                 <h3 class="currentScore" id="p2score">0</h3>
             </div>
-            <div class="whoseTurn"></div>
+            <div class="whoseTurn p1turn" id="turnIndicator"></div>
         </div>
     </div>
     
     <div class="endScreen hidden" id="endScreen">
+        <div class="topBar">
+            <h1>Ultimate TicTacToe</h1>
+        </div>
         <div>
-            <h3 id="topText"></h2>
-            <h2 id="mainText"></h2>
+            <h3 class="mainMessage" id="topText"></h2>
+            <h3 class="mainMessage" id="mainText"></h2>
         </div>
         <p id="gameScore"></p>
         <div class="btnContainer">
